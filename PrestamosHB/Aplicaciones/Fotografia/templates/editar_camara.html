@@ -1,0 +1,83 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Actualizar Cámara</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/procesar_edicion_camara/{{ camara.idcam }}/" id="form_camara">
+                        {% csrf_token %}
+                        <input type="hidden" name="idcam" value="{{ camara.idcam }}">
+
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control bg-dark text-white" id="modelo" name="modelo" value="{{ camara.modelo }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <select class="form-select bg-dark text-white" id="tipo" name="tipo" required>
+                                <option value="">Seleccione</option>
+                                <option value="DSLR" {% if camara.tipo == 'DSLR' %}selected{% endif %}>DSLR</option>
+                                <option value="dron" {% if camara.tipo == 'dron' %}selected{% endif %}>Dron</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="valor_mercado" class="form-label">Valor de Mercado</label>
+                            <input type="number" class="form-control bg-dark text-white" id="valor_mercado" name="valor_mercado" value="{{ camara.valor_mercado }}" min="0" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-light w-100">Actualizar Cámara</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validación jQuery -->
+<script>
+    $(document).ready(function () {
+        $("#form_camara").validate({
+            rules: {
+                modelo: { required: true, minlength: 3 },
+                tipo: { required: true },
+                valor_mercado: { required: true, number: true, min: 0 }
+            },
+            messages: {
+                modelo: "Ingrese un modelo válido (mínimo 3 caracteres)",
+                tipo: "Seleccione un tipo de cámara",
+                valor_mercado: "Ingrese un valor numérico válido mayor a 0"
+            }
+        });
+    });
+</script>
+
+<!-- Estilo para errores y efecto glassmorphism -->
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    label.error {
+        background-color: rgba(220, 53, 69, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    input.error,
+    select.error {
+        border: 2px solid #dc3545;
+    }
+</style>
+{% endblock %}

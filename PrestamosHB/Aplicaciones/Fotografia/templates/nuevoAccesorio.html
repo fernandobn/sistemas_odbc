@@ -1,0 +1,76 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Registro de Accesorio</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="form_accesorio" action='/guardar_accesorio/'>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Tipo de Accesorio</label>
+                            <select class="form-select bg-dark text-white" id="nombre" name="nombre" required>
+                                <option value="">Seleccione</option>
+                                <option value="trípode">Trípode</option>
+                                <option value="filtro">Filtro</option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="disponible" name="disponible" checked>
+                            <label class="form-check-label" for="disponible">Disponible</label>
+                        </div>
+                        <button type="submit" class="btn btn-outline-light w-100">Registrar Accesorio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validación jQuery -->
+<script>
+    $(document).ready(function () {
+        $("#form_accesorio").validate({
+            rules: {
+                nombre: { required: true },
+                disponible: { required: true }
+            },
+            messages: {
+                nombre: "Seleccione un tipo de accesorio",
+                disponible: "Marque si el accesorio está disponible"
+            }
+        });
+    });
+</script>
+
+<!-- Estilo para errores y efecto glassmorphism -->
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    label.error {
+        background-color: rgba(220, 53, 69, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    input.error,
+    select.error {
+        border: 2px solid #dc3545;
+    }
+</style>
+
+{% endblock %}

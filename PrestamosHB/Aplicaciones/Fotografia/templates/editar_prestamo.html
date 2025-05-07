@@ -1,0 +1,125 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Actualizar Préstamo</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="form_prestamo" action="/procesar_edicion_prestamo/{{ prestamo.idpre }}/">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ prestamo.idpre }}">
+
+                        <!-- Cámara -->
+                        <div class="mb-3">
+                            <label for="camara" class="form-label">Cámara</label>
+                            <select class="form-select bg-dark text-white" id="camara" name="camara" required>
+                                <option value="">Seleccione</option>
+                                {% for c in camaras %}
+                                    <option value="{{ c.idcam }}" {% if c.idcam == prestamo.camara.idcam %}selected{% endif %}>{{ c.modelo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Fotógrafo -->
+                        <div class="mb-3">
+                            <label for="fotografo" class="form-label">Fotógrafo</label>
+                            <select class="form-select bg-dark text-white" id="fotografo" name="fotografo" required>
+                                <option value="">Seleccione</option>
+                                {% for f in fotografos %}
+                                    <option value="{{ f.idfot }}" {% if f.idfot == prestamo.fotografo.idfot %}selected{% endif %}>{{ f.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Fecha de Salida -->
+                        <div class="mb-3">
+                            <label for="fecha_salida" class="form-label">Fecha de Salida</label>
+                            <input type="date" class="form-control bg-dark text-white" id="fecha_salida" name="fecha_salida" value="{{ prestamo.fecha_salida|date:'Y-m-d' }}" required>
+                        </div>
+
+                        <!-- Seguro Activo -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="seguro_activo" name="seguro_activo" {% if prestamo.seguro_activo %}checked{% endif %}>
+                            <label class="form-check-label" for="seguro_activo">Seguro Activo</label>
+                        </div>
+
+                        <!-- Accesorios -->
+                        <div class="mb-3">
+                            <label for="accesorios" class="form-label">Accesorios</label>
+                            <select class="form-select bg-dark text-white" id="accesorios" name="accesorios" multiple required>
+                                {% for a in accesorios %}
+                                    <option value="{{ a.idacc }}" {% if a in prestamo.accesorios.all %}selected{% endif %}>{{ a.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-light w-100">Actualizar Préstamo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validación jQuery -->
+<script>
+    $(document).ready(function () {
+        // Obtener la fecha de hoy en formato yyyy-mm-dd
+        var today = new Date().toISOString().split('T')[0];
+
+        $("#form_prestamo").validate({
+            rules: {
+                camara: { required: true },
+                fotografo: { required: true },
+                fecha_salida: { 
+                    required: true,
+                    min: today // Validación para asegurarse de que la fecha no sea anterior a hoy
+                },
+                seguro_activo: { required: true }
+            },
+            messages: {
+                camara: "Seleccione una cámara",
+                fotografo: "Seleccione un fotógrafo",
+                fecha_salida: {
+                    required: "Ingrese la fecha de salida",
+                    min: "La fecha no puede ser antes de hoy"
+                },
+                seguro_activo: "Indique si el seguro está activo"
+            }
+        });
+    });
+</script>
+
+<!-- Estilo para errores y efecto glassmorphism -->
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    label.error {
+        background-color: rgba(220, 53, 69, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    input.error,
+    select.error {
+        border: 2px solid #dc3545;
+    }
+</style>
+
+{% endblock %}
+
+

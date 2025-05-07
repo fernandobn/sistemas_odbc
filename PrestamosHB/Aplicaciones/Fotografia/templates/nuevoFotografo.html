@@ -1,0 +1,76 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Registro de Fotógrafo</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="form_fotografo" action='/guardar_fotografo/'>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control bg-dark text-white" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo_cliente" class="form-label">Tipo de Cliente</label>
+                            <select class="form-select bg-dark text-white" id="tipo_cliente" name="tipo_cliente" required>
+                                <option value="">Seleccione</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="profesional">Profesional</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-light w-100">Registrar Fotógrafo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validación jQuery -->
+<script>
+    $(document).ready(function () {
+        $("#form_fotografo").validate({
+            rules: {
+                nombre: { required: true, minlength: 3 },
+                tipo_cliente: { required: true }
+            },
+            messages: {
+                nombre: "Ingrese un nombre válido (mínimo 3 caracteres)",
+                tipo_cliente: "Seleccione un tipo de cliente"
+            }
+        });
+    });
+</script>
+
+<!-- Estilo para errores y efecto glassmorphism -->
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    label.error {
+        background-color: rgba(220, 53, 69, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    input.error,
+    select.error {
+        border: 2px solid #dc3545;
+    }
+</style>
+
+{% endblock %}

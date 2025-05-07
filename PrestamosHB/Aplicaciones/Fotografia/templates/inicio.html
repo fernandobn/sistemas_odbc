@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Fotografias</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <script src="{% static 'assets/js/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'assets/js/jquery.validate.js' %}"></script>
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/fotografo.ico' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link rel="stylesheet" href="{% static 'assets/izitoast/iziToast.min.css' %}">
+  <script src="{% static 'assets/izitoast/iziToast.min.js' %}"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Cardo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'assets/datatables/dataTables.dataTables.min.css' %}">
+  <script src="{% static 'assets/datatables/dataTables.min.js' %}"></script>
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+
+      <a href="/home/" class="logo d-flex align-items-center me-auto me-xl-0">
+        <i class="bi bi-camera"></i>
+        <h1 class="sitename">Fotografia</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="/home/" class="active">Inicio</a></li>
+          <li class="dropdown"><a href="#"><span>Gestión</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="/nuevaCamara/">Agregar Cámara</a></li>
+              <li><a href="/listarCamaras/">Buscar Cámara</a></li>
+              <li><a href="/nuevoFotografo/">Agregar Fotógrafo</a></li>
+              <li><a href="/listarFotografos/">Buscar Fotógrafo</a></li>
+              <li><a href="/nuevoPrestamo/">Agregar Préstamo</a></li>
+              <li><a href="/listarPrestamos/">Buscar Préstamo</a></li>
+              <li><a href="/nuevoAccesorio/">Agregar Accesorio</a></li>
+              <li><a href="/listarAccesorios/">Buscar Accesorio</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <div class="header-social-links">
+        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+    </div>
+  </header>
+  
+
+  
+  
+
+  <!-- Contenido -->
+  {% block contenido %}
+  {% endblock %}
+  
+  <footer id="footer" class="footer">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-twitter-x"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="line"></div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  
+{% if messages %}
+{% for mensajeConfirmacion in messages %}
+    <script>
+        // Función para mostrar el mensaje de éxito
+        function showSuccessMessage(message) {
+            iziToast.success({
+                title: 'Confirmación',
+                message: message,
+                position: 'topRight'
+            });
+        }
+
+        // Función para mostrar el mensaje de error
+        function showErrorMessage(message) {
+            iziToast.error({
+                title: 'Error',
+                message: message,
+                position: 'topRight'
+            });
+        }
+
+        // Verifica el tipo de mensaje y llama a la función correspondiente
+        if ("{{ mensajeConfirmacion.tags }}" == "success") {
+            showSuccessMessage('{{ mensajeConfirmacion }}');
+        } else if ("{{ mensajeConfirmacion.tags }}" == "error") {
+            showErrorMessage('{{ mensajeConfirmacion }}');
+        }
+    </script>
+    
+{% endfor %}
+{% endif %}
+
+<script>
+    function showDeleteConfirmation(id, type) {
+        let url = '';
+        let message = '';
+    
+        // Solo para eliminar cámara
+        if (type === 'camara') {
+            url = `/eliminarCamara/${id}/`;  // URL para eliminar cámara
+            message = '¿Estás seguro de que deseas eliminar esta cámara?';  // Mensaje para eliminar cámara
+        }
+
+        // Solo para eliminar fotógrafo
+        if (type === 'fotografo') {
+            url = `/eliminarFotografo/${id}/`;  // URL para eliminar fotógrafo
+            message = '¿Estás seguro de que deseas eliminar este fotógrafo?';  // Mensaje para eliminar fotógrafo
+        }
+
+        // Solo para eliminar préstamo
+        if (type === 'prestamo') {
+            url = `/eliminarPrestamo/${id}/`;  // URL para eliminar préstamo
+            message = '¿Estás seguro de que deseas eliminar este préstamo?';  // Mensaje para eliminar préstamo
+        }
+
+        // Solo para eliminar accesorio
+        if (type === 'accesorio') {
+            url = `/eliminarAccesorio/${id}/`;  // URL para eliminar accesorio
+            message = '¿Estás seguro de que deseas eliminar este accesorio?';  // Mensaje para eliminar accesorio
+        }
+    
+        // Mostrar la pregunta de confirmación en el centro
+        iziToast.question({
+            timeout: 20000,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            id: 'question',
+            zindex: 999,
+            title: 'Confirmación',
+            message: message,
+            position: 'center',  // La pregunta de confirmación aparece en el centro
+            buttons: [
+                ['<button><b>SÍ</b></button>', function (instance, toast) {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}', // Si CSRF está habilitado
+                        },
+                    })
+                    .then(response => response.json())  // Procesar la respuesta JSON
+                    .then(data => {
+                        if (data.success) {
+                            // Mensaje de éxito en la parte superior derecha
+                            iziToast.success({
+                                title: 'Éxito',
+                                message: data.message,
+                                timeout: 5000,  // Aumentar el tiempo de visualización
+                                position: 'topRight'  // Ajustar para que el mensaje de éxito esté en la parte superior derecha
+                            });
+                        } else {
+                            // Mensaje de error más específico
+                            iziToast.error({
+                                title: 'Error',
+                                message: data.message || 'No se pudo eliminar debido a su estado.',
+                                timeout: 5000,  // Aumentar el tiempo de visualización
+                                position: 'topRight'  // Ajustar para que el mensaje de error esté en la parte superior derecha
+                            });
+                        }
+                        // Esperar un poco más antes de recargar la página para que el mensaje se lea
+                        setTimeout(() => location.reload(), 2000); // Recargar la página después de 2 segundos
+                    })
+                    .catch(error => {
+                        // Mensaje de error en la parte superior derecha en caso de fallo en la eliminación
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Ocurrió un problema al intentar eliminar.',
+                            timeout: 5000,  // Aumentar el tiempo de visualización
+                            position: 'topRight'  // Ajustar para que el mensaje de error esté en la parte superior derecha
+                        });
+                    });
+    
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                }]
+            ]
+        });
+    }
+</script>
+
+</body>
+
+</html>

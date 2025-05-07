@@ -1,0 +1,112 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Registro de Préstamo</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" id="form_prestamo" action='/guardar_prestamo/'>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="camara" class="form-label">Cámara</label>
+                            <select class="form-select bg-dark text-white" id="camara" name="camara" required>
+                                <option value="">Seleccione</option>
+                                {% for c in camaras %}
+                                    <option value="{{ c.idcam }}">{{ c.modelo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fotografo" class="form-label">Fotógrafo</label>
+                            <select class="form-select bg-dark text-white" id="fotografo" name="fotografo" required>
+                                <option value="">Seleccione</option>
+                                {% for f in fotografos %}
+                                    <option value="{{ f.idfot }}">{{ f.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_salida" class="form-label">Fecha de Salida</label>
+                            <input type="date" class="form-control bg-dark text-white" id="fecha_salida" name="fecha_salida" required>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="seguro_activo" name="seguro_activo" checked>
+                            <label class="form-check-label" for="seguro_activo">Seguro Activo</label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="accesorios" class="form-label">Accesorios</label>
+                            <select class="form-select bg-dark text-white" id="accesorios" name="accesorios" multiple required>
+                                {% for a in accesorios %}
+                                    <option value="{{ a.idacc }}">{{ a.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+
+                        <button type="submit" class="btn btn-outline-light w-100">Registrar Préstamo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Validación jQuery -->
+<script>
+    $(document).ready(function () {
+        var today = new Date().toISOString().split('T')[0];
+        $("#fecha_salida").attr("min", today);  // Evita fechas anteriores directamente en el input
+
+        $("#form_prestamo").validate({
+            rules: {
+                camara: { required: true },
+                fotografo: { required: true },
+                fecha_salida: { 
+                    required: true,
+                    min: today 
+                }
+            },
+            messages: {
+                camara: "Seleccione una cámara",
+                fotografo: "Seleccione un fotógrafo",
+                fecha_salida: {
+                    required: "Ingrese la fecha de salida",
+                    min: "La fecha no puede ser anterior a hoy"
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Estilo para errores y efecto glassmorphism -->
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    label.error {
+        background-color: rgba(220, 53, 69, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    input.error,
+    select.error {
+        border: 2px solid #dc3545;
+    }
+</style>
+
+{% endblock %}

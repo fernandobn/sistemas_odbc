@@ -1,0 +1,94 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card glassmorphism text-white border-0 shadow-lg">
+                <div class="card-header text-center bg-transparent border-bottom border-light">
+                    <h4>Listado de Préstamos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped table-hover" id="tbl_prestamos">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cámara</th>
+                                    <th>Fotógrafo</th>
+                                    <th>Fecha de Salida</th>
+                                    <th>Seguro Activo</th>
+                                    <th>Accesorios</th> <!-- NUEVA COLUMNA -->
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in prestamos %}
+                                <tr>
+                                    <td>{{ p.idpre }}</td>
+                                    <td>{{ p.camara.modelo }}</td>
+                                    <td>{{ p.fotografo.nombre }}</td>
+                                    <td>{{ p.fecha_salida }}</td>
+                                    <td>{{ p.seguro_activo|yesno:"Sí,No" }}</td>
+                                    <td>
+                                        {% if p.prestamoaccesorio_set.all %}
+                                            <ul class="mb-0">
+                                                {% for pa in p.prestamoaccesorio_set.all %}
+                                                    <li>{{ pa.accesorio.nombre }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            Sin accesorios
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="/editar_prestamo/{{ p.idpre }}" class="btn btn-sm btn-outline-light">Editar</a>
+                                        <button onclick="showDeleteConfirmation({{ p.idpre }}, 'prestamo')" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center">No hay préstamos registrados.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tbl_prestamos').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['copyHtml5','excelHtml5','csvHtml5','pdfHtml5'],
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
+    });
+</script>
+<style>
+    .glassmorphism {
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+    }
+
+    .table thead th {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-outline-light:hover {
+        background-color: white;
+        color: black;
+    }
+</style>
+
+{% endblock %}
